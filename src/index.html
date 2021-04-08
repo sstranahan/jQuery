@@ -3,14 +3,201 @@
 <head>
     <script type = "text/javascript" src = "jquery-3.6.0.min.js"></script>
     <meta charset="UTF-8">
+
+    <style type="text/css">
+
+        .myStyle
+        {
+            color: blue;
+        }
+
+        td
+        {
+            font-family: "Courier New", sans-serif;
+            font-size: 2em;
+            padding: .3em;
+        }
+
+        .shaded
+        {
+            background: blanchedalmond;
+        }
+
+        table
+        {
+            border-collapse: collapse;
+        }
+
+        button
+        {
+            font-size: 2em;
+        }
+
+    </style>
+
+
     <title>My JQuery Page</title>
 
 </head>
 
 <body>
 
+<h1>Hello There!</h1>
+
+
+<section id = "intro">
+    <p>One</p>
+    <p>Two</p>
+    <p>Three</p>
+</section>
+
+<p>
+    Lorem ipsum dolor sit amet, <b>consectetur adipiscing elit</b>, sed do eiusmod tempor incididunt ut labore et dolore magna
+    aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+    sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+</p>
+
+<p class="para1">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+    aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+    sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+</p>
+
+<p id="para2">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+    aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+    sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+</p>
+
+<p>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+    aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+    sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+
+
+<div id = "tableDiv"></div>
+</p>
+
+<button id = "myButton">Change Somethin!</button> <br><br>
+<input id = "firstName"></input> <br><br>
+<input id = "mySlider" type = "range" min = "0" max = "100" value = "25">
+</input> <br>
+<button id = "myButton2">Update Two Text</button> <br><br>
+
+<p>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+    aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+    sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+</p>
+
+<p id = "one">Some Stuff</p>
+<p id = "two">Some Stuff</p>
+
+<!--Table goes in here ...-->
+
+
+
+
 
 <script type="text/javascript">
+
+    all_ptags = $("p");  // select all paragraphs
+
+    // second_par = $("p").eq(3).attr('class', 'myStyle');  // Set class
+    // or
+    second_par = $("p").eq(3).addClass('myStyle');
+
+    firstPtext = $("p").first().text();  // Get text
+
+    $("p").eq(3).text("This is the new first paragraph text!!");
+
+    $("p").eq(6).css('color', 'red');
+
+
+
+    // var num_paragraphs = all_ptags.length;
+    //
+    // para_0 = all_ptags[0];
+    //
+    // para_1 = $(".para1");
+    //
+    // para_2 = $("#para2");
+    //
+    // first_para = $("p:first");
+
+    // Creating new elements ...
+
+    var newElement = $("<p>New Element Here</p>");
+
+    $("#one").prepend("--Prepend--");
+    $("#one").append("..Append..");
+    $("#one").before("<h1>Before</h1>");
+    $("#one").after("<h2>After</h2>");
+
+    $("#two").prepend(newElement);
+
+
+    row = 10;
+    cols = 10;
+
+    randArr = new Array();
+
+    for (let i = 0; i < row; i++) {
+        randArr[i] = new Array();
+    }
+
+    for (let i = 0; i < row; i++) {
+        for (let j = 0; j < cols ; j++) {
+            randArr[i][j] = Math.floor(100 * Math.random());
+        }
+    }
+
+    $("#tableDiv").append("<table></table>");
+
+    for (let i = 0; i < row; i++) {          // row loop
+        $("#tableDiv table").append("<tr></tr>");
+        for (let j = 0; j < cols; j++) {     // col loop
+            $("#tableDiv table tr").last().append("<td>" + randArr[i][j] + "</td>");
+        }
+    }
+
+    $("#tableDiv table tr:even").addClass("shaded");
+
+    // Bindings
+
+    $("#myButton").bind("click", buttonHandler);
+    $("#myButton2").bind("click", h2);
+    $("#mySlider").bind("change", slideHandler());
+
+    // Event handlers
+
+    function buttonHandler(evt) {
+        p = evt;
+        all_ptags.eq(0).text("Button was pressed!");
+    }
+
+    function h2(evt) {
+        text = $("#firstName").val();
+        all_ptags.eq(1).text(text);
+    }
+
+    function slideHandler(evt) {
+        strVal = $("mySlider").val();
+        sliderVal = parseInt(strVal);
+        all_ptags.eq(2).text(strVal);
+    }
+
+
+
+
+
+
 
 
 
